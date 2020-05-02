@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import apiClient from "../services/resorts";
+import { withRouter } from "react-router-dom";
 
-export default class AddResort extends Component {
+class AddResort extends Component {
   state = {
     name: "",
     latitude: "",
@@ -59,3 +60,5 @@ export default class AddResort extends Component {
     );
   }
 }
+
+export default AddResort;

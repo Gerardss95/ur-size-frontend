@@ -4,7 +4,16 @@ class ApiClient {
   constructor() {
     this.apiClient = axios.create({
       baseURL: "http://localhost:3000/",
+      withCredentials: true,
     });
+  }
+
+  login(body) {
+    return this.apiClient.post("/login", body);
+  }
+
+  whoami() {
+    return this.apiClient.get("/whoami");
   }
 
   getAllResorts() {
