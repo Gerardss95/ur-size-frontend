@@ -4,7 +4,6 @@ import { Route, Redirect } from "react-router-dom";
 import { withAuth } from "../context/authContext";
 
 function PrivateRoute({ component: Comp, isLoggedIn, ...rest }) {
-  console.log({ ...rest });
   return (
     <Route
       {...rest}

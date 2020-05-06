@@ -17,7 +17,7 @@ class App extends Component {
           <div className="App">
             <Switch>
               <AnonRoute exact path={"/login"} component={LoginWithAuth} />
-              <PrivateRoute exact path={"/resorts"} component={Protected} />
+              <PrivateRoute exact path={"/protected"} component={Protected} />
             </Switch>
           </div>
         </div>

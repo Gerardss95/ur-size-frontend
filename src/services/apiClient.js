@@ -20,16 +20,8 @@ class ApiClient {
     return this.apiClient.get("/whoami");
   }
 
-  getAllResorts() {
+  getProtected() {
     return this.apiClient.get("/protected");
-  }
-
-  createResort(body) {
-    return this.apiClient.post("/resorts", body);
-  }
-
-  deleteResort(id) {
-    return this.apiClient.delete(`/resorts/${id}`);
   }
 }
 
