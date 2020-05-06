@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import apiClient from "../services/resorts";
+import { withAuth } from "../context/authContext";
 
-export default class Resorts extends Component {
+class Resorts extends Component {
   state = {
     resorts: [],
   };
@@ -10,9 +11,10 @@ export default class Resorts extends Component {
     apiClient
       .getAllResorts()
       .then(({ data }) => {
-        this.setState({
-          resorts: data,
-        });
+        console.log("data", data);
+        // this.setState({
+        // resorts: data,
+        // });
       })
       .catch((error) => {
         console.log(error);
@@ -54,11 +56,15 @@ export default class Resorts extends Component {
   };
 
   render() {
+    const { onLogout } = this.props;
     return (
       <div>
         <h1>Listado de pistas</h1>
+        <button onClick={onLogout}>Loogut</button>
         <ul>{this.renderResorts()}</ul>
       </div>
     );
   }
 }
+
+export default withAuth(Resorts);

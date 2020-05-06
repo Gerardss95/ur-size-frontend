@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-// import apiClient from "../services/resorts";
+import { withAuth } from "../context/authContext";
 
-export default class Login extends Component {
+class Login extends Component {
   state = {
     username: "",
     password: "",
@@ -32,7 +32,6 @@ export default class Login extends Component {
   render() {
     const { username, password } = this.state;
     console.log(this.props);
-
     return (
       <div>
         <h1>Login</h1>
@@ -59,3 +58,5 @@ export default class Login extends Component {
     );
   }
 }
+
+export default withAuth(Login);

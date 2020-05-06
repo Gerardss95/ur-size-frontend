@@ -3,7 +3,7 @@ import axios from "axios";
 class ApiClient {
   constructor() {
     this.apiClient = axios.create({
-      baseURL: "http://localhost:3000/",
+      baseURL: "http://localhost:5000/",
       withCredentials: true,
     });
   }
@@ -12,12 +12,16 @@ class ApiClient {
     return this.apiClient.post("/login", body);
   }
 
+  logout() {
+    return this.apiClient.get("/logout");
+  }
+
   whoami() {
     return this.apiClient.get("/whoami");
   }
 
   getAllResorts() {
-    return this.apiClient.get("/resorts");
+    return this.apiClient.get("/protected");
   }
 
   createResort(body) {
