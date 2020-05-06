@@ -3,7 +3,7 @@ import axios from "axios";
 class ApiClient {
   constructor() {
     this.apiClient = axios.create({
-      baseURL: "http://localhost:5000/",
+      baseURL: process.env.REACT_APP_BACKEND_URI,
       withCredentials: true,
     });
   }
