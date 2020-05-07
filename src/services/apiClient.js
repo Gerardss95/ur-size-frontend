@@ -20,6 +20,10 @@ class ApiClient {
     return this.apiClient.get("/whoami");
   }
 
+  signup(body) {
+    return this.apiClient.post('/signup', body);
+  }
+
   getProtected() {
     return this.apiClient.get("/protected");
   }
