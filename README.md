@@ -1,4 +1,5 @@
 # Project Name
+UR-SIZE 
 
 ## Instructions how to start
 
@@ -10,7 +11,7 @@ start with `npm run start`
 
 ## Description
 
-Describe your project in one/two lines.
+A web app to compare shoe/clothing sizes on different  brands. With user interaction.  
 
 ## Motivation
 
@@ -30,13 +31,13 @@ Just a litle API for educational purposes.
 
 **Logout** - As a user I want to be able to log out from the webpage so that I can make sure no one will access my account
 
-**Events list** - As a user I want to see all the events available so that I can choose which ones I want to attend
+**Shoes list** - As a user I want to see all the events available so that I can choose which ones I want to attend
 
-**Events create** - As a user I want to create an event so that I can invite others to attend
+**Add shoes** - As a user I want to add shoes
 
-**Events detail** - As a user I want to see the event details and attendee list of one event so that I can decide if I want to attend
+**Shoes comparator** - As a user I want to compare the shoe sizes on different shoes
 
-**Attend event** - As a user I want to be able to attend to event so that the organizers can count me in
+**Write comments** - As a user I want to be able to write comments
 
 ## Backlog
 
@@ -44,7 +45,7 @@ List of other features outside of the MVPs scope
 
 User profile: - see my profile - upload my profile picture - see other users profile - list of events created by the user - list events the user is attending
 
-Geo Location: - add geolocation to events when creating - show event in a map in event detail page - show all events in a map in the event list page
+
 
 Homepage: - …
 
@@ -72,7 +73,9 @@ Homepage: - …
 | Home             | `/`          | home           |
 | Login            | `/login`     | login page     |
 | Protected        | `/protected` | protected view |
-
+| Shoes            | `/shoes`     | list of shoes view |
+| shoe             | `/shoe/id`   | one shoe       |
+| Protected        | `/protected` | protected view |
 ## Links
 
 ### Trello

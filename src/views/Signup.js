@@ -20,7 +20,7 @@ class Signup extends Component {
 		apiClient
 		.signup({username, password})
 		.then((res) =>{
-			history.push("/signup")
+			history.push("/protected")
 		})
 		.catch((err) => {
 			console.log(err);
