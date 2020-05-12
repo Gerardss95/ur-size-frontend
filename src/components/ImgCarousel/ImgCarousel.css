@@ -1,0 +1,38 @@
+.rotateimg180 {
+  -webkit-transform:rotate(180deg);
+  -moz-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+
+.right-center{
+  position: absolute;
+  top: 50%;
+  right: 20%;
+}
+.left-center{
+  position: absolute;
+  top: 50%;
+  left: 20%;
+} 
+.arrow{
+  height: 3rem;
+}
+.carousel{
+  position: relative;
+  display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: center;
+  align-items: center;
+  height: 500px;
+  width: 100%;
+}
+.carousel-image{
+  display: block;
+  max-width: 100%;
+  height: 100%;
+  
+  
+}
