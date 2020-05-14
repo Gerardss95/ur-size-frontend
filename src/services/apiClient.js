@@ -7,6 +7,7 @@ class ApiClient {
       withCredentials: true,
     });
   }
+  //Auth
 
   login(body) {
     return this.apiClient.post("/login", body);
@@ -26,6 +27,19 @@ class ApiClient {
 
   getProtected() {
     return this.apiClient.get("/protected");
+  }
+
+  //Sneakers
+  sneakers() {
+    return this.apiClient.get("/sneakers");
+  }
+
+  addSneaker(body) {
+    return this.apiClient.post("/sneakers/add", body);
+  }
+
+  oneSneaker(id) {
+    return this.apiClient.get(`/sneakers/${id}`)
   }
 }
 
