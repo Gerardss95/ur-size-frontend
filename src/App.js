@@ -14,6 +14,7 @@ import Navbar from "./components/Navbar";
 
 import Home from "./views/Home";
 import Sneakers from "./views/Sneakers/Sneakers";
+import OneSneaker from "./views/Sneakers/OneSneaker";
 
 class App extends Component {
   render() {
@@ -27,6 +28,7 @@ class App extends Component {
               <AnonRoute exact path={"/login"} component={LoginWithAuth} />
               <AnonRoute exact path={"/signup"} component={SignupWithAuth} />
               <Route exact path={"/sneakers"} component={Sneakers} />
+              <Route exact path={"/sneakers/:_id"} component={OneSneaker} />
               <PrivateRoute exact path={"/protected"} component={Protected} />
             </Switch>
           </div>

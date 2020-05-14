@@ -8,7 +8,7 @@ export default class SearchBar extends Component {
     const {searchPlaceHolder} = this.props;
     return(
       <div>
-        <input placeholder={searchPlaceHolder} type="text" onChange={this.search}></input>
+        <input className="search-bar" placeholder={searchPlaceHolder} type="text" onChange={this.search}></input>
       </div>
     );
 

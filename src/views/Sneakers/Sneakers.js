@@ -40,6 +40,11 @@ export default class Sneakers extends Component {
       return <SneakerCard sneaker={sneaker} index={index}/>
     })
   }
+  search = (e) => {
+    this.setState({
+      query: e.target.value,
+    })
+  }
 
   render(){
     const { status, error } = this.state;
@@ -49,7 +54,7 @@ export default class Sneakers extends Component {
           return <div>Loading...</div>
         case STATUS.LOADED:
           return <div>
-                  <SearchBar searchPlaceHolder={"Search Sneakers..."}/>
+                  <SearchBar searchPlaceHolder={"Search Sneakers..."} searchQuery={this.search}/>
                   <h1>Sneakers</h1>
                   {this.listSneakers()}
                 </div>
