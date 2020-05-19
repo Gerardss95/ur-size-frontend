@@ -12,7 +12,7 @@ export default class SneakerCard extends Component {
       <div className="sneaker-card">
         <img className="sneaker-image" src={ sneaker.image[0]} alt={sneaker.name}/>
         <h2 className="sneaker-card-text">{sneaker.name}</h2>
-        <img className="sneaker-brand-image" src={sneaker.brand.image} alt={sneaker.brand.name}/> 
+       <img className="sneaker-brand-image" src={sneaker.brand.image} alt={sneaker.brand.name}/> 
       </div>
       </Link>
     );
