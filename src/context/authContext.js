@@ -9,10 +9,11 @@ export const withAuth = (Comp) => {
     render() {
       return (
         <AuthContext.Consumer>
-          {({ handleLogin, user, isLoggedIn, handleLogout }) => {
+          {({ handleLogin, user, isLoggedIn, handleLogout, handleSignup }) => {
             return (
               <Comp
                 onLogin={handleLogin}
+                onSignup={handleSignup}
                 user={user}
                 isLoggedIn={isLoggedIn}
                 onLogout={handleLogout}
@@ -50,6 +51,16 @@ class AuthProvider extends Component {
           user: null,
         });
       });
+  }
+  handleSignup = ({ username, password }) => {
+    apiClient
+    .signup({ username, password })
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
   }
 
   handleLogin = ({ username, password }) => {
@@ -91,6 +102,7 @@ class AuthProvider extends Component {
         value={{
           isLoggedIn,
           user,
+          handleSignup: this.handleSignup,
           handleLogin: this.handleLogin,
           handleLogout: this.handleLogout,
         }}

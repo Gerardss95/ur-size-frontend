@@ -17,6 +17,7 @@ export default class Sneakers extends Component {
     sneakers: [],
     error: undefined,
     status: STATUS.LOADING,
+    searchQuery: '',
   }
   componentDidMount = () => {
     apiClient
@@ -46,7 +47,27 @@ export default class Sneakers extends Component {
     })
   }
 
-  render(){
+//   filterSneakers = () => {
+//     const { sneakers, searchQuery } = this.state;
+//     let filteredSneaker = sneakers.map((sneaker) => {
+//       sneaker.fullInfo = `${sneaker.name} ${sneaker.brand.name}`;
+//       return sneaker;
+//     })
+//     if (searchQuery === '') {
+//       return sneakers.map((sneaker, index) => {
+//         return <SneakerCard sneaker={sneaker} key={index}/>
+//       })
+//   } else if (searchQuery !== '') {
+//     return filteredSneaker.map((sneaker, index) => {
+//       if(sneaker.fullInfo.toLowerCase().includes(searchQuery.toLowerCase())){
+//         return <SneakerCard sneaker={sneaker} key={index}/>
+//       }
+//     })
+//   }
+// }
+ 
+
+  render() {
     const { status, error } = this.state;
     // eslint-disable-next-line default-case
     switch (status) {
@@ -61,5 +82,6 @@ export default class Sneakers extends Component {
         case STATUS.ERROR:
           return <div>{error}</div>
       }
+    }
   }
-}
+  

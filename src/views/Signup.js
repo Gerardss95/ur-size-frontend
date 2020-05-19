@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withAuth } from "../context/authContext";
-import apiClient from "../services/apiClient";
+import { Link } from 'react-router-dom';
 
 class Signup extends Component {
 	state = {
@@ -14,17 +14,14 @@ class Signup extends Component {
     });
   };
 	handleSubmit = (e) => {
-		e.preventDefault();
-		const { history } = this.props;
-		const { username, password } = this.state;
-		apiClient
-		.signup({username, password})
-		.then((res) =>{
-			history.push("/")
-		})
-		.catch((err) => {
-			console.log(err);
-		})
+    e.preventDefault();
+    const { history } = this.props;
+    const { username, password } = this.state;
+    const { onSignup } = this.props;
+    if ( username !== '' && password !== ''){
+      onSignup({username, password})
+    }
+    
 	}
 	render() {
     const { username, password } = this.state;
@@ -49,8 +46,9 @@ class Signup extends Component {
             value={password}
             onChange={this.handleChange}
           />
-          <input type="submit" value="submit" />
+          <input type="submit" value="sign up" />
         </form>
+        <p>Already have an account?</p><Link to={'/login'}><button>Log In</button></Link> 
       </div>
     );
   }
