@@ -16,6 +16,9 @@ import Home from "./views/Home";
 import Sneakers from "./views/Sneakers/Sneakers";
 import OneSneaker from "./views/Sneakers/OneSneaker";
 import AddSneaker from "./views/Sneakers/AddSneaker";
+import Brands from "./views/Brands/Brands";
+import BrandSneakerList from "./views/Brands/BrandsSneakerList";
+
 
 class App extends Component {
   render() {
@@ -28,9 +31,11 @@ class App extends Component {
               <Route exact path={"/"} component={Home}/>
               <AnonRoute exact path={"/login"} component={LoginWithAuth} />
               <AnonRoute exact path={"/signup"} component={SignupWithAuth} />
+              <Route exact path={"/brands"} component={Brands} />
+              <Route exact path={"/brands/:_id"} component={BrandSneakerList} />
               <Route exact path={"/sneakers"} component={Sneakers} />
-              <Route exact path={"/sneakers/:_id"} component={OneSneaker} />
               <PrivateRoute exact path={"/sneakers/add"} component={AddSneaker} />
+              <Route exact path={"/sneakers/:_id"} component={OneSneaker} />
               <PrivateRoute exact path={"/protected"} component={Protected} />
             </Switch>
           </div>

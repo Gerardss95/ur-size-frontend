@@ -28,14 +28,20 @@ class ApiClient {
   getProtected() {
     return this.apiClient.get("/protected");
   }
-
+  //Brands
+  brands() {
+    return this.apiClient.get("/brands")
+  }
+  oneBrand(id) {
+    return this.apiClient.get(`/brands/${id}`)
+  }
   //Sneakers
   sneakers() {
     return this.apiClient.get("/sneakers");
   }
 
   addSneaker(body) {
-    return this.apiClient.post("/sneakers/add", body);
+    return this.apiClient.post("/sneakers/", body);
   }
 
   oneSneaker(id) {

@@ -4,6 +4,12 @@ import { withAuth } from "../../context/authContext";
 
 import apiClient from "../../services/apiClient";
 
+const STATUS = {
+  LOADING: "LOADING",
+  LOADED: "LOADED",
+  ERROR: "ERROR",
+};
+
 class AddSneaker extends Component {
 
   state = {
@@ -12,10 +18,27 @@ class AddSneaker extends Component {
     image: '',
     brand: '',
     info: '',
+    brands: [],
+    status: STATUS.LOADING,
   };
   componentDidMount = () => {
     this.setState({
       userOwner: this.props.user.data._id
+    })
+    apiClient
+    .brands()
+    .then((response) =>{
+      this.setState({
+        brands: response.data,
+        status: STATUS.LOADED,
+      })
+      
+    })
+    .catch((error) => {
+      this.setState({
+        error: error.name,
+        status: STATUS.ERROR,
+      })
     })
   }
   handleChange = (e) => {
@@ -25,15 +48,14 @@ class AddSneaker extends Component {
   }
   handleSubmit = (e) => {
     e.preventDefault();
-    const { history } = this.props;
     const {
       name,
       image,
       brand,
       info,
     } = this.state;
-  
-  apiClient
+
+    apiClient
     .addSneaker({
       name,
       image,
@@ -41,12 +63,20 @@ class AddSneaker extends Component {
       info
     })
     .then((res) =>{
-      history.push("/sneakers")
+    
     })
     .catch((err) =>{
       console.log(err)
     });
   };
+  optionBrands = () => {
+    const {brands} = this.state;
+    console.log(brands)
+    return brands.map((brand, index) => {
+      
+      return <option value={brand._id} key={index}>{brand.name}</option>
+    })
+  }
   render(){
     return(
       <div>
@@ -67,14 +97,7 @@ class AddSneaker extends Component {
             required
             onChange={this.handleChange}
           >
-          <option value={"5ec3e659a082421580c96b2e"}>Nike</option>
-          <option value={"5ec3e659a082421580c96b2e"}>Adidas</option>
-          <option value={"5ec3e659a082421580c96b2e"}>Vans</option>
-          <option value={"5ec3e659a082421580c96b2e"}>Converse</option>
-          <option value={"5ec3e659a082421580c96b2e"}>New Balance</option>
-          <option value={"5ec3e659a082421580c96b2e"}>Asics</option>
-          <option value={"5ec3e659a082421580c96b2e"}>Reebook</option>
-          <option value={"5ec3e659a082421580c96b2e"}>Puma</option>
+          {this.optionBrands()}         
           </select>
           <label htmlFor="image">Link the model images</label>
           <input
