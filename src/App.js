@@ -18,7 +18,7 @@ import OneSneaker from "./views/Sneakers/OneSneaker";
 import AddSneaker from "./views/Sneakers/AddSneaker";
 import Brands from "./views/Brands/Brands";
 import BrandSneakerList from "./views/Brands/BrandsSneakerList";
-
+import UpdateSneaker from "./views/Sneakers/UpdateSneaker";
 
 class App extends Component {
   render() {
@@ -35,6 +35,7 @@ class App extends Component {
               <Route exact path={"/brands/:_id"} component={BrandSneakerList} />
               <Route exact path={"/sneakers"} component={Sneakers} />
               <PrivateRoute exact path={"/sneakers/add"} component={AddSneaker} />
+              <PrivateRoute exact path={"/sneakers/:_id/update"} component={UpdateSneaker} />
               <Route exact path={"/sneakers/:_id"} component={OneSneaker} />
               <PrivateRoute exact path={"/protected"} component={Protected} />
             </Switch>

@@ -43,7 +43,12 @@ class ApiClient {
   addSneaker(body) {
     return this.apiClient.post("/sneakers/", body);
   }
-
+  updateSneaker(id, body) {
+    return this.apiClient.put(`/sneakers/${id}`, body)
+  }
+  deleteSneaker(id) {
+    return this.apiClient.delete(`/sneakers/${id}`)
+  }
   oneSneaker(id) {
     return this.apiClient.get(`/sneakers/${id}`)
   }

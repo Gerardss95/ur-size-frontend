@@ -13,7 +13,7 @@ const STATUS = {
 class AddSneaker extends Component {
 
   state = {
-    userOwner: '',
+    userId: '',
     name: '',
     image: '',
     brand: '',
@@ -23,7 +23,7 @@ class AddSneaker extends Component {
   };
   componentDidMount = () => {
     this.setState({
-      userOwner: this.props.user.data._id
+      userId: this.props.user.data._id
     })
     apiClient
     .brands()
@@ -48,11 +48,13 @@ class AddSneaker extends Component {
   }
   handleSubmit = (e) => {
     e.preventDefault();
+    const { history } = this.props;
     const {
       name,
       image,
       brand,
       info,
+      userId,
     } = this.state;
 
     apiClient
@@ -60,10 +62,11 @@ class AddSneaker extends Component {
       name,
       image,
       brand,
-      info
+      info,
+      userId
     })
     .then((res) =>{
-    
+    history.push("/sneakers")
     })
     .catch((err) =>{
       console.log(err)
