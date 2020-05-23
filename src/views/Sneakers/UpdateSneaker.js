@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+
+import { Redirect } from 'react-router-dom'
+
 
 import { withAuth } from "../../context/authContext";
 
@@ -28,7 +30,6 @@ componentDidMount = () => {
     })
   }
  
-  console.log(this.props)
   apiClient
   .oneSneaker(sneakerId)
   .then((res) => {
@@ -38,11 +39,14 @@ componentDidMount = () => {
     })
   })
   .then(() => {
+    const { history } = this.props;
     const {sneaker, userLoggedIn } = this.state;
     if(sneaker.userId === userLoggedIn) {
       this.setState({
         owner: true
       })
+    }else{
+      history.push("/sneakers")
     }
   })
   .catch((error) => {
@@ -79,6 +83,7 @@ componentDidMount = () => {
 
   handleDelete = (id) => {
     const { history } = this.props;
+   
     apiClient
       .deleteSneaker(id)
       .then(() => {
@@ -90,22 +95,23 @@ componentDidMount = () => {
   };
 
   handleSubmit = (e) => {
-    e.preventdefault();
-    const sneakerId = this.props.match.params.id;
+    e.preventDefault();
+    const sneakerId = this.props.match.params._id;
     const { sneaker } = this.state;
     const { history } = this.props;
     apiClient
     .updateSneaker(sneakerId, sneaker)
     .then((res) =>{
-      history.push("/sneakers")
+      history.push(`/sneakers/${sneakerId}`)
+      
     })
     .catch((err) =>{
       console.log(err)
     });
   };
+
   optionBrands = () => {
     const {brands} = this.state;
-    console.log(brands)
     return brands.map((brand, index) => {
       
       return <option value={brand._id} key={index}>{brand.name}</option>
@@ -115,19 +121,15 @@ componentDidMount = () => {
 
   render() {
     const { sneaker, status, error, owner } = this.state;
-    const sneakerId = this.props.match.params.id;
+    
+    const { history } = this.props;
+    const sneakerId = this.props.match.params._id;
         // eslint-disable-next-line default-case
         switch (status) {
       case STATUS.LOADING:
         return <div>Loading...</div>
       case STATUS.LOADED:
         return <div>
-                { !owner && 
-                  <div>
-                    <h2>That's not your sneaker!</h2> 
-                    <Link to={'/sneakers'}><button>Return to the sneakers page!</button></Link>
-                  </div>  
-                }
                 { owner &&
                 <div>
                       <form onSubmit={this.handleSubmit}>
@@ -136,14 +138,14 @@ componentDidMount = () => {
                         type="text"
                         name="name"
                         id="name"
-                        
+                        defaultValue={sneaker.name}
                         onChange={this.handleChange}
                       />
                       <label htmlFor="brand">Choose Brand</label>
                       <select
                         id="brand" 
                         name="brand"
-                        
+                        defaultValue={sneaker.brand}
                         onChange={this.handleChange}
                       >
                       {this.optionBrands()}         
@@ -153,7 +155,7 @@ componentDidMount = () => {
                         type="text"
                         name="image"
                         id="image"
-                        
+                        defaultValue={sneaker.image}
                         onChange={this.handleChange}
                       />
                       <label htmlFor="info">Info</label>
@@ -161,7 +163,7 @@ componentDidMount = () => {
                         type="text"
                         name="info"
                         id="info"
-                        
+                        defaultValue={sneaker.info}
                         onChange={this.handleChange}
                       />
                       <br/>
@@ -170,6 +172,7 @@ componentDidMount = () => {
                     <button onClick={(e) => {this.handleDelete(sneakerId) }}> Delete </button>
                   </div>  
                 }
+               
               </div>
       case STATUS.ERROR:
         return <div>{error}</div>

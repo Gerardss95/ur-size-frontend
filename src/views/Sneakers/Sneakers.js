@@ -43,28 +43,29 @@ export default class Sneakers extends Component {
   }
   search = (e) => {
     this.setState({
-      query: e.target.value,
+      searchQuery: e.target.value,
     })
   }
 
-//   filterSneakers = () => {
-//     const { sneakers, searchQuery } = this.state;
-//     let filteredSneaker = sneakers.map((sneaker) => {
-//       sneaker.fullInfo = `${sneaker.name} ${sneaker.brand.name}`;
-//       return sneaker;
-//     })
-//     if (searchQuery === '') {
-//       return sneakers.map((sneaker, index) => {
-//         return <SneakerCard sneaker={sneaker} key={index}/>
-//       })
-//   } else if (searchQuery !== '') {
-//     return filteredSneaker.map((sneaker, index) => {
-//       if(sneaker.fullInfo.toLowerCase().includes(searchQuery.toLowerCase())){
-//         return <SneakerCard sneaker={sneaker} key={index}/>
-//       }
-//     })
-//   }
-// }
+  filterSneakers = () => {
+    const { sneakers, searchQuery } = this.state;
+    let filteredSneaker = sneakers.map((sneaker) => {
+      sneaker.fullInfo = `${sneaker.name} ${sneaker.brand.name}`;
+      return sneaker;
+      
+    })
+    if (searchQuery === '') {
+      return sneakers.map((sneaker, index) => {
+        return <SneakerCard sneaker={sneaker} key={index}/>
+      })
+  } else if (searchQuery !== '') {
+    return filteredSneaker.map((sneaker, index) => {
+      if(sneaker.fullInfo.toLowerCase().includes(searchQuery.toLowerCase())){
+        return <SneakerCard sneaker={sneaker} key={index}/>
+      }
+    })
+  }
+}
  
 
   render() {
@@ -77,7 +78,7 @@ export default class Sneakers extends Component {
           return <div>
                   <SearchBar searchPlaceHolder={"Search Sneakers..."} searchQuery={this.search}/>
                   <h1>Sneakers</h1>
-                  {this.listSneakers()}
+                  {this.filterSneakers()}
                 </div>
         case STATUS.ERROR:
           return <div>{error}</div>

@@ -33,9 +33,9 @@ class App extends Component {
               <AnonRoute exact path={"/signup"} component={SignupWithAuth} />
               <Route exact path={"/brands"} component={Brands} />
               <Route exact path={"/brands/:_id"} component={BrandSneakerList} />
+              <PrivateRoute exact path={"/sneakers/:_id/update"} component={UpdateSneaker} />
               <Route exact path={"/sneakers"} component={Sneakers} />
               <PrivateRoute exact path={"/sneakers/add"} component={AddSneaker} />
-              <PrivateRoute exact path={"/sneakers/:_id/update"} component={UpdateSneaker} />
               <Route exact path={"/sneakers/:_id"} component={OneSneaker} />
               <PrivateRoute exact path={"/protected"} component={Protected} />
             </Switch>

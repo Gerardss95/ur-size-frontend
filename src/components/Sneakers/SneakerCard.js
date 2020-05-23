@@ -6,7 +6,6 @@ import "./sneakersStyle.css";
 export default class SneakerCard extends Component {
   render(){
     const {sneaker, index} = this.props;
-    console.log(sneaker)
     return(
       <Link key={index} to={`/sneakers/${sneaker._id}`}>
       <div className="sneaker-card">

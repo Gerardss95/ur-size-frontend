@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 
 import apiClient from "../../services/apiClient";
+import { withAuth } from "../../context/authContext";
+
 
 import SingleSneaker from "../../components/Sneakers/SingleSneaker";
 const STATUS = {
@@ -9,23 +11,39 @@ const STATUS = {
   ERROR: "ERROR",
 };
 
-export default class OneSneaker extends Component {
+ class OneSneaker extends Component {
 
   state = {
     sneaker: null,
     error: undefined,
     status: STATUS.LOADING,
+    userLoggedIn: '',
+    owner: undefined,
   }
   componentDidMount = () => {
-    const sneakerID = this.props.match.params._id;
-    
-    apiClient
-    .oneSneaker(sneakerID)
-    .then((response) => {
+    const sneakerId = this.props.match.params._id;
+    if (this.props.user !== null){
       this.setState({
-        sneaker: response.data,
-        status: STATUS.LOADED,
+        userLoggedIn: this.props.user.data._id
       })
+    }
+   
+    console.log(this.props)
+    apiClient
+    .oneSneaker(sneakerId)
+    .then((res) => {
+      this.setState({
+        sneaker: res.data,
+        status: STATUS.LOADED
+      })
+    })
+    .then(() => {
+      const {sneaker, userLoggedIn } = this.state;
+      if(sneaker.userId === userLoggedIn) {
+        this.setState({
+          owner: true
+        })
+      }
     })
     .catch((error) => {
       this.setState({
@@ -34,8 +52,10 @@ export default class OneSneaker extends Component {
       })
     })
   }
+
   render(){
-    const { sneaker, status, error } = this.state;
+    const { sneaker, status, error, owner } = this.state;
+    console.log(owner)
       // eslint-disable-next-line default-case    
       switch (status) {
         case STATUS.LOADING:
@@ -43,10 +63,11 @@ export default class OneSneaker extends Component {
         case STATUS.LOADED:
           return <div>
 
-          <SingleSneaker sneaker={sneaker}/>
+          <SingleSneaker sneaker={sneaker} owner={owner}/>
           </div>
         case STATUS.ERROR:
           return <div>{error}</div>
       } 
   } 
 } 
+export default withAuth(OneSneaker);
