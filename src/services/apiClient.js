@@ -52,6 +52,23 @@ class ApiClient {
   oneSneaker(id) {
     return this.apiClient.get(`/sneakers/${id}`)
   }
+  //reviews
+  review() {
+    return this.apiClient.get("/reviews");
+  }
+  addReview(body) {
+    return this.apiClient.post("/reviews/", body)
+  }
+  updateReview(id, body) {
+    return this.apiClient.put(`/reviews/${id}`, body)
+  }
+  deleteReview(id) {
+    return this.apiClient.delete(`/reviews/${id}`)
+  }
+  oneReview(id) {
+    return this.apiClient.get(`/reviews/${id}`)
+  }
+ 
 }
 
 const apiClient = new ApiClient();

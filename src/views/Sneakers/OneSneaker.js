@@ -5,6 +5,7 @@ import { withAuth } from "../../context/authContext";
 
 
 import SingleSneaker from "../../components/Sneakers/SingleSneaker";
+import AddSize from "../../components/Reviews/Add";
 const STATUS = {
   LOADING: "LOADING",
   LOADED: "LOADED",
@@ -64,6 +65,7 @@ const STATUS = {
           return <div>
 
           <SingleSneaker sneaker={sneaker} owner={owner}/>
+          <AddSize sneaker={sneaker} user={this.props.user}/>
           </div>
         case STATUS.ERROR:
           return <div>{error}</div>
