@@ -53,7 +53,7 @@ class ApiClient {
     return this.apiClient.get(`/sneakers/${id}`)
   }
   //reviews
-  review() {
+  reviews() {
     return this.apiClient.get("/reviews");
   }
   addReview(body) {
