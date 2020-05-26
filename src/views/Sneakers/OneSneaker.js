@@ -7,6 +7,7 @@ import { withAuth } from "../../context/authContext";
 import SingleSneaker from "../../components/Sneakers/SingleSneaker";
 import AddSize from "../../components/Reviews/Add";
 import ReadReview from "../../components/Reviews/ReadReviews";
+import Comparator from "../../components/Reviews/Comparator";
 
 
 const STATUS = {
@@ -24,6 +25,8 @@ const STATUS = {
     userLoggedIn: '',
     owner: undefined,
     reviews: [],
+    userHaveReview: false,
+    
   }
   componentDidMount = () => {
     const sneakerId = this.props.match.params._id;
@@ -32,14 +35,24 @@ const STATUS = {
         userLoggedIn: this.props.user.data._id
       })
     }
+    const { reviews } = this.state;
+   
+     reviews.map(review => {
+       
+      if (review.user._id === this.props.data.user._id){
+        this.setState({
+          userHaveReview: true,
+        })
+      }
+    })
     
+  
     apiClient
-    .reviews()
-    .then((res) => {
+    .reviewFilterSneaker(sneakerId)
+    .then((res) =>{
       this.setState({
-        reviews: res.data,
+        reviews: res.data, 
       })
-      console.log(res.data)
     })
     .catch((error) => {
       this.setState({
@@ -47,7 +60,6 @@ const STATUS = {
         status: STATUS.ERROR,
       })
     })
-   
     apiClient
     .oneSneaker(sneakerId)
     .then((res) => {
@@ -72,17 +84,20 @@ const STATUS = {
     })
     
   }
+
   listReviews = () => {
     const { reviews } = this.state;
     return reviews.map((review, index) =>{
-      const { sneaker } = this.state;
-      return <ReadReview  review={review} key={index} sneaker={sneaker} />
+      return <ReadReview  review={review} key={index}  />
     })
     
   }
+    
+
+  
 
   render() {
-    const { sneaker, status, error, owner, reviews } = this.state;
+    const { sneaker, status, error, owner } = this.state;
    
       // eslint-disable-next-line default-case    
       switch (status) {
@@ -94,6 +109,8 @@ const STATUS = {
           <SingleSneaker sneaker={sneaker} owner={owner}/>
           <AddSize sneaker={sneaker} user={this.props.user}/>
           {this.listReviews()}
+          <Comparator sneaker={sneaker} user={this.props.user}/>
+
           </div>
         case STATUS.ERROR:
           return <div>{error}</div>

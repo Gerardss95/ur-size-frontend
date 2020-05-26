@@ -50,7 +50,6 @@ class Add extends Component {
   
   render(){
     const { loggedIn } = this.state;
-    console.log(loggedIn)
     return(
       <div>
       { loggedIn && 

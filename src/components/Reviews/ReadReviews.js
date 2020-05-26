@@ -1,18 +1,13 @@
 import React, { Component } from 'react'
 
 class ReadReviews extends Component {
-  listReview = () => {
-      if(this.props.sneaker._id === this.props.review.sneaker._id){
-        return  <div>
-                  <h2>{this.props.review.user.username}</h2>
-                  <p>{this.props.review.review}</p>
-                </div>
-       }
-  }
+
   render(){  
+    const review = this.props.review
     return(
       <div>
-        {this.listReview()}
+       <h1>{review.user.username}</h1>
+       <p>{review.review}</p>
       </div>
     )
   }

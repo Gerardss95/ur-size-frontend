@@ -56,6 +56,9 @@ class ApiClient {
   reviews() {
     return this.apiClient.get("/reviews");
   }
+  reviewsFilterByUser(id){
+    return this.apiClient.get(`/reviews/user/${id}`)
+  }
   addReview(body) {
     return this.apiClient.post("/reviews/", body)
   }
@@ -64,6 +67,15 @@ class ApiClient {
   }
   deleteReview(id) {
     return this.apiClient.delete(`/reviews/${id}`)
+  }
+  reviewFilterSneaker(id) {
+    return this.apiClient.get(`/reviews/sneaker/${id}`)
+  }
+  reviewFilterUser(id) {
+    return this.apiClient.get(`/reviews/user/${id}`)
+  }
+  reviewFilterBrand(id) {
+    return this.apiClient.get(`/reviews/brand/${id}`)
   }
   oneReview(id) {
     return this.apiClient.get(`/reviews/${id}`)
