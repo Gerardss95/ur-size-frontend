@@ -5,51 +5,118 @@ import apiClient from "../../services/apiClient";
 
 class Comparator extends Component{
 state = {
- reviewsUser: [],
+  userReviews: [],
  reviewsBrand: [],
  userSize: '',
+ sizeDiff: '',
+ brandDiff: '',
+ brandUserDiff: '',
+}
+comparator = () =>{
+  const { sizeDiff, brandDiff } = this.state
+  apiClient
+  .reviewFilterUser(this.props.user.data._id)
+    .then((res) =>{
+      res.data.map((review)=>{
+        if(review.brand._id === brandDiff._id){
+          this.setState({
+            userSize: (review.userSize + sizeDiff),
+          })
+
+        }
+      })
+    })
 }
 componentDidMount = () =>{
   const sneaker = this.props.sneaker;
-  console.log(sneaker.brand)
-  apiClient
-  .reviewFilterBrand(sneaker.brand)
-  .then((res) =>{
-    this.setState({
-      reviewsBrand: res.data,
-    })
-  })
-  .catch((err) =>{
-    console.log(err)
-  });
-  apiClient
-  .reviewFilterUser(this.props.user.data._id)
-  .then((res) =>{
-    res.data.map((review) => {
-      if(review.brand._id === sneaker.brand ){
+  if(this.props.user !== null){
+    apiClient
+    .reviewFilterUser(this.props.user.data._id)
+    .then((res) =>{
+      res.data.map((review) => {
         this.setState({
-          userSize: review.userSize
+          userReviews: review,
         })
-      }
+        if(review.brand._id === sneaker.brand ){
+          this.setState({
+            userSize: review.userSize,
+          })
+          
+        }else{ 
+          let allUserReviews = this.state.userReviews;
+           apiClient
+          .reviewFilterBrand(sneaker.brand)
+          .then((res) =>{
+           res.data.map((reviews) => {
+             apiClient
+             .reviewFilterUser(reviews.user._id)
+             .then((res) =>{
+              res.data.map((review) => {
+                this.setState({
+                  reviewsBrand: review,
+                })
+                if(this.state.reviewsBrand.brand._id === allUserReviews.brand._id){
+                  if(this.state.reviewsBrand.userSize > allUserReviews.userSize){
+                    return (this.setState({
+                      sizeDiff: this.state.reviewsBrand.userSize - allUserReviews.userSize,
+                      brandDiff: allUserReviews.brand,
+                    }),  this.comparator())
+                  } else {
+                    return (this.setState({
+                      sizeDiff: (allUserReviews.userSize - this.state.reviewsBrand.userSize),
+                      brandDiff: allUserReviews.brand
+                    }),  this.comparator())
+                  }
+                }
+                
+              })
+             })
+           })
+          
+            
+          })
+         
+          .catch((err) =>{
+            console.log(err)
+          });
+        }
+      })
     })
-  })
-  .catch((err) =>{
-    console.log(err)
-  })
- 
   
+    .catch((err) =>{
+      console.log(err)
+    })
+
+  } 
+ 
+
 
 }
+
+
 
 
 render(){
   const { userSize } = this.state;
-  
-  return(
-    <div>
-     <h2> You should wear {userSize}</h2>
+  if(this.props.user !== null){
+    if(userSize === ''){
+      return(
+        <div>
+          
+        </div>
+      )
+    }return(
+      <div>
+       <h2> Based on our system you should wear {userSize}</h2>
+      </div>
+    )
+
+  }else{
+    return(<div>
     </div>
-  )
+      ) 
+     
+  }
 }
 }
 
