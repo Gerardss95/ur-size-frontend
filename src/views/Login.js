@@ -9,11 +9,13 @@ class Login extends Component {
   };
 
   handleSubmit = (e) => {
+    const { history } =this.props;
     e.preventDefault();
     const { username, password } = this.state;
     const { onLogin } = this.props;
     if (username !== "" && password !== "") {
       onLogin({ username, password });
+      history.push('/sneakers')
     }
   };
 

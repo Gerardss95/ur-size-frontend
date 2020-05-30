@@ -6,11 +6,10 @@ import apiClient from "../../services/apiClient";
 class Comparator extends Component{
 state = {
   userReviews: [],
- reviewsBrand: [],
- userSize: '',
- sizeDiff: '',
- brandDiff: '',
- brandUserDiff: '',
+  reviewsBrand: [],
+  userSize: '',
+  sizeDiff: '',
+  brandDiff: '',
 }
 comparator = () =>{
   const { sizeDiff, brandDiff } = this.state

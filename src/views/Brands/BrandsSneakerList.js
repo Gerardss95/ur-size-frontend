@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 
-import SearchBar from "../../components/SearchBar/SearchBar";
 import SneakerCard from "../../components/Sneakers/SneakerCard";
 
 import apiClient from "../../services/apiClient";

@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
 
-import { Redirect } from 'react-router-dom'
-
-
 import { withAuth } from "../../context/authContext";
 
 import apiClient from '../../services/apiClient';
@@ -122,7 +119,6 @@ componentDidMount = () => {
   render() {
     const { sneaker, status, error, owner } = this.state;
     
-    const { history } = this.props;
     const sneakerId = this.props.match.params._id;
         // eslint-disable-next-line default-case
         switch (status) {
