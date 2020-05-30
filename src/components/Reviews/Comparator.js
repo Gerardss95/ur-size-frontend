@@ -8,41 +8,54 @@ state = {
   userReviews: [],
   reviewsBrand: [],
   userSize: '',
-  sizeDiff: '',
-  brandDiff: '',
+
 }
-comparator = () =>{
-  const { sizeDiff, brandDiff } = this.state
+comparator = (allUserReviews, sizeDiff, brandDiff ) =>{
+  console.log(brandDiff)
+  console.log(sizeDiff)
+  
+  let userID = '';
+  if(this.props.user.data !== undefined){
+    userID = this.props.user.data._id
+  }else{
+    userID = this.props.user._id 
+   }
   apiClient
-  .reviewFilterUser(this.props.user.data._id)
+  .reviewFilterUser(userID)
     .then((res) =>{
       res.data.map((review)=>{
+        console.log(allUserReviews)
         if(review.brand._id === brandDiff._id){
           this.setState({
             userSize: (review.userSize + sizeDiff),
+            userReviews: allUserReviews,
           })
-
         }
       })
     })
 }
 componentDidMount = () =>{
   const sneaker = this.props.sneaker;
+  let allUserReviews = '';
+  let userID = '';
+  let brandReviews = '';
+  if(this.props.user.data !== undefined){
+    userID = this.props.user.data._id
+  }else{
+    userID = this.props.user._id 
+   }
   if(this.props.user !== null){
     apiClient
-    .reviewFilterUser(this.props.user.data._id)
+    .reviewFilterUser(userID)
     .then((res) =>{
       res.data.map((review) => {
-        this.setState({
-          userReviews: review,
-        })
+        allUserReviews = review
         if(review.brand._id === sneaker.brand ){
+          console.log('work')
           this.setState({
             userSize: review.userSize,
-          })
-          
+          }) 
         }else{ 
-          let allUserReviews = this.state.userReviews;
            apiClient
           .reviewFilterBrand(sneaker.brand)
           .then((res) =>{
@@ -51,20 +64,16 @@ componentDidMount = () =>{
              .reviewFilterUser(reviews.user._id)
              .then((res) =>{
               res.data.map((review) => {
-                this.setState({
-                  reviewsBrand: review,
-                })
-                if(this.state.reviewsBrand.brand._id === allUserReviews.brand._id){
-                  if(this.state.reviewsBrand.userSize > allUserReviews.userSize){
-                    return (this.setState({
-                      sizeDiff: this.state.reviewsBrand.userSize - allUserReviews.userSize,
-                      brandDiff: allUserReviews.brand,
-                    }),  this.comparator())
+                brandReviews = review
+                if(brandReviews.brand._id === allUserReviews.brand._id){
+                  if(brandReviews.userSize > allUserReviews.userSize){
+                     let sizeDiff = brandReviews.userSize - allUserReviews.userSize;
+                      let brandDiff = allUserReviews.brand;
+                  return this.comparator(allUserReviews, sizeDiff, brandDiff )
                   } else {
-                    return (this.setState({
-                      sizeDiff: (allUserReviews.userSize - this.state.reviewsBrand.userSize),
-                      brandDiff: allUserReviews.brand
-                    }),  this.comparator())
+                      let sizeDiff = (allUserReviews.userSize - brandReviews.userSize);
+                      let brandDiff = allUserReviews.brand;
+                      return this.comparator(allUserReviews, sizeDiff, brandDiff )
                   }
                 }
                 

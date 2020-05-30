@@ -15,12 +15,21 @@ class Add extends Component {
   };
   componentDidMount = () => {
     if( this.props.user !== null ){
-      this.setState({
-        user: this.props.user.data._id,
-        brand: this.props.sneaker.brand,
-        loggedIn: true,
-        sneaker: this.props.sneaker._id,
-      })
+      if (this.props.user.data !== undefined){
+        this.setState({
+          user: this.props.user.data._id,
+          brand: this.props.sneaker.brand,
+          loggedIn: true,
+          sneaker: this.props.sneaker._id,
+        })
+      }else{
+        this.setState({
+          user: this.props.user._id,
+          brand: this.props.sneaker.brand,
+          loggedIn: true,
+          sneaker: this.props.sneaker._id,
+        })
+      }
     }
    
   }

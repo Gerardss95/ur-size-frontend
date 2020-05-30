@@ -29,11 +29,18 @@ const STATUS = {
     
   }
   componentDidMount = () => {
+    let userID = '';
     const sneakerId = this.props.match.params._id;
     if (this.props.user !== null){
-      this.setState({
-        userLoggedIn: this.props.user.data._id
-      })
+        if(this.props.user.data !== undefined){
+            userID = this.props.user.data._id
+          
+        }else{
+          userID = this.props.user._id
+          this.setState({
+            userLoggedIn: userID
+          })
+        }
     }
     const { reviews } = this.state;
    
