@@ -55,8 +55,11 @@ class AuthProvider extends Component {
   handleSignup = ({ username, password }) => {
     apiClient
     .signup({ username, password })
-    .then((res) => {
-      console.log(res);
+    .then(({ data: user}) => {
+      this.setState({
+        isLoggedIn: true,
+        user
+      })
     })
     .catch((error) => {
       console.log(error);

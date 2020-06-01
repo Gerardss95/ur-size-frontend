@@ -13,6 +13,7 @@ state = {
 comparator = (allUserReviews, sizeDiff, brandDiff ) =>{
   console.log(brandDiff)
   console.log(sizeDiff)
+  console.log(allUserReviews)
   
   let userID = '';
   if(this.props.user.data !== undefined){
@@ -24,7 +25,6 @@ comparator = (allUserReviews, sizeDiff, brandDiff ) =>{
   .reviewFilterUser(userID)
     .then((res) =>{
       res.data.map((review)=>{
-        console.log(allUserReviews)
         if(review.brand._id === brandDiff._id){
           this.setState({
             userSize: (review.userSize + sizeDiff),
@@ -51,7 +51,6 @@ componentDidMount = () =>{
       res.data.map((review) => {
         allUserReviews = review
         if(review.brand._id === sneaker.brand ){
-          console.log('work')
           this.setState({
             userSize: review.userSize,
           }) 
@@ -60,6 +59,7 @@ componentDidMount = () =>{
           .reviewFilterBrand(sneaker.brand)
           .then((res) =>{
            res.data.map((reviews) => {
+             console.log(reviews)
              apiClient
              .reviewFilterUser(reviews.user._id)
              .then((res) =>{
