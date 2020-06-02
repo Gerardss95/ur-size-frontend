@@ -25,7 +25,6 @@ class App extends Component {
     return (
       <AuthProvider>
         <div>
-          <div className="App">
             <Navbar />
             <Switch>
               <Route exact path={"/"} component={Home}/>
@@ -39,7 +38,7 @@ class App extends Component {
               <Route exact path={"/sneakers/:_id"} component={OneSneaker} />
               <PrivateRoute exact path={"/protected"} component={Protected} />
             </Switch>
-          </div>
+
         </div>
       </AuthProvider>
     );

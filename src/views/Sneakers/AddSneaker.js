@@ -22,8 +22,20 @@ class AddSneaker extends Component {
     status: STATUS.LOADING,
   };
   componentDidMount = () => {
+    let userID = '';
+    if (this.props.user !== null){
+      if(this.props.user.data !== undefined){
+          userID = this.props.user.data._id
+        
+      }else{
+        userID = this.props.user._id
+        this.setState({
+          userLoggedIn: userID
+        })
+      }
+  }
     this.setState({
-      userId: this.props.user.data._id
+      userId: userID
     })
     apiClient
     .brands()

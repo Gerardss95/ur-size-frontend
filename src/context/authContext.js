@@ -56,6 +56,7 @@ class AuthProvider extends Component {
     apiClient
     .signup({ username, password })
     .then(({ data: user}) => {
+      console.log(user)
       this.setState({
         isLoggedIn: true,
         user

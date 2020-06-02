@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import apiClient from "../../services/apiClient";
+import { Link } from 'react-router-dom';
 
 
 class Comparator extends Component{
@@ -16,7 +17,9 @@ comparator = (allUserReviews, sizeDiff, brandDiff ) =>{
   console.log(allUserReviews)
   
   let userID = '';
-  if(this.props.user.data !== undefined){
+  if(this.props.user === null){
+   
+  }else if(this.props.user.data !== undefined){
     userID = this.props.user.data._id
   }else{
     userID = this.props.user._id 
@@ -39,7 +42,10 @@ componentDidMount = () =>{
   let allUserReviews = '';
   let userID = '';
   let brandReviews = '';
-  if(this.props.user.data !== undefined){
+  console.log(this.props)
+  if(this.props.user === null){
+   
+  }else if(this.props.user.data !== undefined){
     userID = this.props.user.data._id
   }else{
     userID = this.props.user._id 
@@ -120,7 +126,9 @@ render(){
     )
 
   }else{
-    return(<div>
+    return(<div className="flex pt-4 flex-col items-center ">
+    <Link to={"/signup"}><button className="bg-red-200 p-4 rounded font-bold">Register to use the Algorithm</button></Link>
+    <Link to={"/login"}><button className="bg-red-200 p-4 rounded font-bold mt-2">If you have an account Log in</button></Link>
     </div>
       ) 
      

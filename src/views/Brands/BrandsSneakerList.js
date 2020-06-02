@@ -42,6 +42,7 @@ export default class BrandsSneakerList extends Component {
   listSneakers = () => {
     const { sneakers } = this.state;
     return sneakers.map((sneaker, index) => {
+      console.log(sneaker.brand)
       return <SneakerCard sneaker={sneaker} index={index}/>
     })
   }

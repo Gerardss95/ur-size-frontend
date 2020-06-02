@@ -52,9 +52,11 @@ export default class Sneakers extends Component {
       case STATUS.LOADING:
           return <div>Loading...</div>
         case STATUS.LOADED:
-          return <div>
-                  <h1>Brands</h1>
+          return <div className="pt-24 pl-4 pr-4 bg-gray-900 pb-4">
+                  <h1 className="text-red-200 text-center font-bold text-xl">All the Brands </h1>
+                  <div className="flex flex-col flex-wrap pb-8 border-black bg-red-200">
                   {this.listBrands()}
+                  </div>
                 </div>
         case STATUS.ERROR:
           return <div>{error}</div>
