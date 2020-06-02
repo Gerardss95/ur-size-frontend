@@ -13,7 +13,7 @@ export default class SneakerCard extends Component {
       <div className="relative text-center flex justify-center flex-col">
         <img className="mx-auto" src={ sneaker.image[0]} alt={sneaker.name}/>
         <div className="flex flex-row p-4">
-          <img className="h-auto w-16" src={sneaker.brand.image} alt={sneaker.brand.name}/> 
+          <img className="h-8 w-auto" src={sneaker.brand.image} alt={sneaker.brand.name}/> 
           <h2 className="pl-2 pt-1 uppercase font-bold ">{sneaker.name}</h2>
         </div>
       </div>

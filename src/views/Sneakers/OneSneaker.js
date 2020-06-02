@@ -42,17 +42,7 @@ const STATUS = {
           })
         }
     }
-    const { reviews } = this.state;
-   
-     reviews.map(review => {
-       
-      if (review.user._id === this.props.data.user._id){
-        this.setState({
-          userHaveReview: true,
-        })
-      }
-    })
-    
+
   
     apiClient
     .reviewFilterSneaker(sneakerId)
@@ -67,9 +57,12 @@ const STATUS = {
         status: STATUS.ERROR,
       })
     })
+    let sneakerVar = '';
     apiClient
     .oneSneaker(sneakerId)
     .then((res) => {
+       sneakerVar = res.data;
+       console.log(res.data)
       this.setState({
         sneaker: res.data,
         status: STATUS.LOADED
@@ -89,7 +82,18 @@ const STATUS = {
         status: STATUS.ERROR,
       })
     })
-    
+   
+    apiClient
+    .reviewFilterUser(userID)
+    .then(res =>{
+      res.data.map(review =>{
+        if(review.brand._id === sneakerVar.brand ){
+          this.setState({
+            userHaveReview: true,
+          })
+        }
+      })
+    })
   }
 
   listReviews = () => {
@@ -99,24 +103,35 @@ const STATUS = {
     })
     
   }
-    
 
+  checkUserReviews = () => {
+
+    const { userHaveReview, sneaker, userLoggedIn } = this.state;
+  
+    if(userHaveReview === true){
+       this.listReviews()
+    }else{
+     return <AddSize sneaker={sneaker} user={this.props.user}/>
+    }
+
+  
+}
   
 
   render() {
-    const { sneaker, status, error, owner } = this.state;
-   
+    const { sneaker, status, error, owner, reviews } = this.state;
+
       // eslint-disable-next-line default-case    
       switch (status) {
         case STATUS.LOADING:
           return <div>Loading...</div>
         case STATUS.LOADED:
-          return <div>
+          console.log(sneaker.brand)
+          return <div className="bg-gray-900 h-screen ">
 
           <SingleSneaker sneaker={sneaker} owner={owner}/>
-          <AddSize sneaker={sneaker} user={this.props.user}/>
-          {this.listReviews()}
-          <Comparator sneaker={sneaker} user={this.props.user}/>
+          {this.checkUserReviews()}
+          <Comparator sneaker={sneaker} user={this.props.user} reviews={reviews}/>
 
           </div>
         case STATUS.ERROR:

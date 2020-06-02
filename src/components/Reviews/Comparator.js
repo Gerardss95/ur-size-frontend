@@ -12,10 +12,6 @@ state = {
 
 }
 comparator = (allUserReviews, sizeDiff, brandDiff ) =>{
-  console.log(brandDiff)
-  console.log(sizeDiff)
-  console.log(allUserReviews)
-  
   let userID = '';
   if(this.props.user === null){
    
@@ -42,30 +38,32 @@ componentDidMount = () =>{
   let allUserReviews = '';
   let userID = '';
   let brandReviews = '';
-  console.log(this.props)
   if(this.props.user === null){
-   
+  
   }else if(this.props.user.data !== undefined){
     userID = this.props.user.data._id
   }else{
     userID = this.props.user._id 
    }
   if(this.props.user !== null){
+    let userHasSize = false;
     apiClient
     .reviewFilterUser(userID)
     .then((res) =>{
       res.data.map((review) => {
         allUserReviews = review
         if(review.brand._id === sneaker.brand ){
+          console.log(review.userSize)
+          userHasSize = true;
           this.setState({
             userSize: review.userSize,
           }) 
-        }else{ 
+        }
+        if(userHasSize !== true) { 
            apiClient
           .reviewFilterBrand(sneaker.brand)
           .then((res) =>{
            res.data.map((reviews) => {
-             console.log(reviews)
              apiClient
              .reviewFilterUser(reviews.user._id)
              .then((res) =>{
@@ -109,7 +107,6 @@ componentDidMount = () =>{
 
 
 
-
 render(){
   const { userSize } = this.state;
   if(this.props.user !== null){
@@ -120,8 +117,9 @@ render(){
         </div>
       )
     }return(
-      <div>
-       <h2> Based on our system you should wear {userSize}</h2>
+      <div className="bg-red-200 rounded relative text-center flex justify-center flex-col m-3 p-3">
+        <h2 className="font-bold text-gray-900 text-xl"> Based on UR-SIZE Algorithm you should wear</h2>
+        <h1 className="font-bold text-6xl text-gray-900">{userSize} US</h1>
       </div>
     )
 
