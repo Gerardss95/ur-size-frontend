@@ -51,10 +51,10 @@ componentDidMount = () =>{
     apiClient
     .reviewFilterUser(userID)
     .then((res) =>{
-      res.data.map((review) => {
+      res.data.map(review => {
         allUserReviews = review
-        if(review.brand._id === sneaker.brand ){
-          console.log(review.userSize)
+
+        if(review.brand._id === sneaker.brand._id ){
           userHasSize = true;
           this.setState({
             userSize: review.userSize,
@@ -112,11 +112,7 @@ render(){
   const { userSize } = this.state;
   if(this.props.user !== null){
     if(userSize === ''){
-      return(
-        <div>
-          
-        </div>
-      )
+      return(<div/>) 
     }return(
       <div className="bg-red-200 rounded relative text-center flex justify-center flex-col m-3 p-3">
         <h2 className="font-bold text-gray-900 text-xl"> Based on UR-SIZE Algorithm you should wear</h2>
