@@ -30,11 +30,12 @@ class Navbar extends Component {
       { showMenu && (
         <ul className="z-20 absolute right-0 mr-0 flex flex-col bg-red-200 border border-red-200 bg-opacity-75">
          <Link  className="px-12 py-3" to={"/sneakers"}>Sneakers</Link>
-          <Link className="px-12 py-3" to={"/brands"}>Brands</Link>
+         <Link className="px-12 py-3" to={"/brands"}>Brands</Link>
          {!isLoggedIn && <Link className="px-12 py-3" to={"/signup"}>Sign Up</Link>}
          {!isLoggedIn &&  <Link className="px-12 py-3" to={"/login"}>Log In</Link>}
          {isLoggedIn && <Link className="px-12 py-3" to={"/sneakers/add"} >Add Sneaker</Link>}
          {isLoggedIn &&  <button className="px-12 py-3" onClick={onLogout}>Log out</button>}
+         <a className="px-12 py-3" href="https://www.linkedin.com/in/gerardss95/">Contact Creator</a>
         </ul>
       )}
 

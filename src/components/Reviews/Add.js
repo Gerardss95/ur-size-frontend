@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 
 import apiClient from "../../services/apiClient";
 import { withAuth } from "../../context/authContext";
-import { Redirect } from 'react-router-dom';
 
 
 class Add extends Component {
@@ -36,7 +35,6 @@ class Add extends Component {
   }
   handleSubmit = (e) => {
     e.preventDefault();
-    const { history } = this.props;
     const{ user, brand, userSize, review, sneaker } = this.state;
     apiClient
     .addReview({

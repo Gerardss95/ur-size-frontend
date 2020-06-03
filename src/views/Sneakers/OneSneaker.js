@@ -62,6 +62,7 @@ const STATUS = {
     .oneSneaker(sneakerId)
     .then((res) => {
        sneakerVar = res.data;
+       this.userChecker(userID, sneakerVar)
       this.setState({
         sneaker: res.data,
         status: STATUS.LOADED
@@ -81,28 +82,21 @@ const STATUS = {
         status: STATUS.ERROR,
       })
     })
-    const { sneaker } = this.state;
+    
+  }
+  userChecker = (userID, sneakerVar) => {
     apiClient
     .reviewFilterUser(userID)
     .then(res =>{
       res.data.map(review =>{
-        if(sneakerVar === undefined){
-          console.log(sneakerVar)
-        }else if(sneakerVar !== undefined){
           if(review.brand._id === sneakerVar.brand._id ){
             this.setState({
-              userHaveReview: true,
+              userHaveReview: true
             })
           }
-        }else if(review.brand._id === sneaker.brand._id){
-          this.setState({
-            userHaveReview: true,
-          })
-        }
+        })
       })
-    })
-  }
-
+    }
   listReviews = () => {
     const { reviews } = this.state;
     return reviews.map((review, index) =>{
@@ -111,21 +105,14 @@ const STATUS = {
     
   }
 
-  checkUserReviews = () => {
-    const { userHaveReview, sneaker, userLoggedIn } = this.state;
-    if(userHaveReview === true){
-       return this.listReviews()
-    }else{
-     return <AddSize sneaker={sneaker} user={this.props.user}/>
-    }
 
   
-}
+
   
 
   render() {
     const { sneaker, status, error, owner, reviews, userHaveReview } = this.state;
-
+  
       // eslint-disable-next-line default-case    
       switch (status) {
         case STATUS.LOADING:
@@ -133,10 +120,16 @@ const STATUS = {
         case STATUS.LOADED:
           return <div className="bg-gray-900 h-max">
           <SingleSneaker sneaker={sneaker} owner={owner}/>
+          <Comparator sneaker={sneaker} user={this.props.user} reviews={reviews}/>
          { userHaveReview &&
-         this.checkUserReviews()
+          this.listReviews()
          } 
-         <Comparator sneaker={sneaker} user={this.props.user} reviews={reviews}/>
+         { !userHaveReview &&
+          <div>
+          <AddSize sneaker={sneaker} user={this.props.user}/>
+          {this.listReviews()}
+          </div>
+         }
           </div>
         case STATUS.ERROR:
           return <div>{error}</div>
