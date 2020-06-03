@@ -25,7 +25,7 @@ const STATUS = {
     userLoggedIn: '',
     owner: undefined,
     reviews: [],
-    userHaveReview: false,
+    userHaveReview: undefined,
     
   }
   componentDidMount = () => {
@@ -62,15 +62,14 @@ const STATUS = {
     .oneSneaker(sneakerId)
     .then((res) => {
        sneakerVar = res.data;
-       console.log(res.data)
       this.setState({
         sneaker: res.data,
         status: STATUS.LOADED
       })
     })
     .then(() => {
-      const {sneaker, userLoggedIn } = this.state;
-      if(sneaker.userId === userLoggedIn) {
+      const {sneaker } = this.state;
+      if(sneaker.userId === userID) {
         this.setState({
           owner: true
         })
@@ -82,12 +81,20 @@ const STATUS = {
         status: STATUS.ERROR,
       })
     })
-   
+    const { sneaker } = this.state;
     apiClient
     .reviewFilterUser(userID)
     .then(res =>{
       res.data.map(review =>{
-        if(review.brand._id === sneakerVar.brand ){
+        if(sneakerVar === undefined){
+          console.log(sneakerVar)
+        }else if(sneakerVar !== undefined){
+          if(review.brand._id === sneakerVar.brand._id ){
+            this.setState({
+              userHaveReview: true,
+            })
+          }
+        }else if(review.brand._id === sneaker.brand._id){
           this.setState({
             userHaveReview: true,
           })
@@ -105,11 +112,9 @@ const STATUS = {
   }
 
   checkUserReviews = () => {
-
     const { userHaveReview, sneaker, userLoggedIn } = this.state;
-  
     if(userHaveReview === true){
-       this.listReviews()
+       return this.listReviews()
     }else{
      return <AddSize sneaker={sneaker} user={this.props.user}/>
     }
@@ -119,20 +124,19 @@ const STATUS = {
   
 
   render() {
-    const { sneaker, status, error, owner, reviews } = this.state;
+    const { sneaker, status, error, owner, reviews, userHaveReview } = this.state;
 
       // eslint-disable-next-line default-case    
       switch (status) {
         case STATUS.LOADING:
           return <div>Loading...</div>
         case STATUS.LOADED:
-          console.log(sneaker.brand)
-          return <div className="bg-gray-900 h-screen ">
-
+          return <div className="bg-gray-900 h-max">
           <SingleSneaker sneaker={sneaker} owner={owner}/>
-          {this.checkUserReviews()}
-          <Comparator sneaker={sneaker} user={this.props.user} reviews={reviews}/>
-
+         { userHaveReview &&
+         this.checkUserReviews()
+         } 
+         <Comparator sneaker={sneaker} user={this.props.user} reviews={reviews}/>
           </div>
         case STATUS.ERROR:
           return <div>{error}</div>

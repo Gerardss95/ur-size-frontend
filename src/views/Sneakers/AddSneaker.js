@@ -86,7 +86,7 @@ class AddSneaker extends Component {
   };
   optionBrands = () => {
     const {brands} = this.state;
-    console.log(brands)
+  
     return brands.map((brand, index) => {
       
       return <option value={brand._id} key={index}>{brand.name}</option>
@@ -94,19 +94,22 @@ class AddSneaker extends Component {
   }
   render(){
     return(
-      <div>
-      <h1>Add Sneakers</h1>
-        <form onSubmit={this.handleSubmit}>
-          <label htmlFor="name">Model Name</label>
+      <div className="pt-20 w-screen text-center bg-gray-900 text-red-200 h-screen">
+      <div className="w-5/6 my-8 bg-red-200 shadow-md rounded px-8 pt-6 pb-8 my-0 mx-auto text-black">
+      <h1 className="text-2xl font-bold text-center text-gray-900 my-8">Add a new Sneaker</h1>
+        <form className="flex flex-col text-center" onSubmit={this.handleSubmit}>
+          <label className="block text-gray-900 font-bold mb-2 text-center w-4/5 my-0 mx-auto" htmlFor="name">Model Name</label>
           <input
+           className="appearance-none border my-0 mx-auto w-4/5 py-2 px-3 bg-gray-900 text-red-200 rounded"
             type="text"
             name="name"
             id="name"
             placeholder="Air Jordan 1"
             onChange={this.handleChange}
           />
-          <label htmlFor="brand">Choose Brand</label>
+          <label  className="block text-gray-900 font-bold mb-2 text-center w-4/5 my-0 mx-auto"  htmlFor="brand">Choose Brand</label>
           <select
+           className="appearance-none border my-0 mx-auto w-4/5 py-2 px-3 bg-gray-900 text-red-200 rounded"
             id="brand" 
             name="brand"
             required
@@ -114,28 +117,25 @@ class AddSneaker extends Component {
           >
           {this.optionBrands()}         
           </select>
-          <label htmlFor="image">Link the model images</label>
+          <label  className="block text-gray-900 font-bold mb-2 text-center w-4/5 my-0 mx-auto"  htmlFor="image">Link the image</label>
           <input
+           className="appearance-none border my-0 mx-auto w-4/5 py-2 px-3 bg-gray-900 text-red-200 rounded"
             type="text"
             name="image"
             id="image"
-            placeholder="Link here the image"
-            onChange={this.handleChange}
-          />
-          <label htmlFor="info">Info</label>
-          <input
-            type="text"
-            name="info"
-            id="info"
-            placeholder="Add extra info if you want"
+            placeholder="Paste here a link"
             onChange={this.handleChange}
           />
           <br/>
+          <div className="mx-auto w-4/5 my-8">
           <input
+          className="bg-gray-900 text-red-200 font-bold py-2 px-8 rounded"
             type='submit'
-            value='publish'
+            value='Publish'
           />
+          </div>
         </form>
+      </div>
       </div>
     )
   }

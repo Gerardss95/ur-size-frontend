@@ -9,8 +9,8 @@ export default class BrandCard extends Component {
     
     return(
       <Link key={index} to={`/brands/${brand._id}`}>
-      <div className="flex flex-row flex-wrap justify-center  ">
-        <img className="w-48 h-36 p-4" src={ brand.image } alt={brand.name}/>
+      <div className="flex flex-col items-center">
+        <img className="w-auto h-32 p-4" src={ brand.image } alt={brand.name}/>
       </div>
       </Link>
     );

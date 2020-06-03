@@ -7,9 +7,10 @@ class ReadReviews extends Component {
     if(review.review === ''){
       return(<div></div>)
     }return(
-      <div>
-       <h1>{review.user.username}</h1>
-       <p>{review.review}</p>
+      <div className="bg-red-200 m-4 rounded flex flex-col p-4 pb-4 text-center">
+       <h1 className=" uppercase text-center font-bold">{review.user.username}</h1>
+       <p className="text-center">{review.review}</p>
+       <p ClassName="text-center"> User Size: {review.userSize} US</p>
       </div>
     )
   }

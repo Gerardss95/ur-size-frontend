@@ -34,6 +34,7 @@ comparator = (allUserReviews, sizeDiff, brandDiff ) =>{
     })
 }
 componentDidMount = () =>{
+  
   const sneaker = this.props.sneaker;
   let allUserReviews = '';
   let userID = '';
@@ -61,7 +62,7 @@ componentDidMount = () =>{
         }
         if(userHasSize !== true) { 
            apiClient
-          .reviewFilterBrand(sneaker.brand)
+          .reviewFilterBrand(sneaker.brand._id)
           .then((res) =>{
            res.data.map((reviews) => {
              apiClient
@@ -119,7 +120,7 @@ render(){
     }return(
       <div className="bg-red-200 rounded relative text-center flex justify-center flex-col m-3 p-3">
         <h2 className="font-bold text-gray-900 text-xl"> Based on UR-SIZE Algorithm you should wear</h2>
-        <h1 className="font-bold text-6xl text-gray-900">{userSize} US</h1>
+        <h1 className="font-bold text-6xl text-red-600">{userSize} US</h1>
       </div>
     )
 

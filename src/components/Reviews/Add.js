@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 
 import apiClient from "../../services/apiClient";
 import { withAuth } from "../../context/authContext";
+import { Redirect } from 'react-router-dom';
 
 
 class Add extends Component {
@@ -35,6 +36,7 @@ class Add extends Component {
   }
   handleSubmit = (e) => {
     e.preventDefault();
+    const { history } = this.props;
     const{ user, brand, userSize, review, sneaker } = this.state;
     apiClient
     .addReview({
@@ -45,7 +47,7 @@ class Add extends Component {
       review
     })
     .then((res) =>{
-      console.log(res)
+      window.location.reload();
     })
     .catch((err) =>{
       console.log(err)
@@ -62,11 +64,13 @@ class Add extends Component {
     return(
       <div>
       { loggedIn && 
-      <div>
-      <h1>Add UR SIZE</h1>
-        <form onSubmit={this.handleSubmit}>
-          <label htmlFor="userSize">Choose UR Size (US) Based on brand</label>
+        <div className="pt-20 w-screen text-center bg-gray-900 text-red-200 h-screen">
+        <div className="w-5/6 bg-red-200 shadow-md rounded px-8 pb-4 my-0 mx-auto text-black">
+        <img className="h-32 mx-20" src="https://i.ibb.co/dJ59KL8/UrSize5.png" alt="UrSize5" border="0"></img>
+        <form className="flex flex-col text-center" onSubmit={this.handleSubmit}>
+          <label className="block text-gray-900 font-bold mb-2 text-center w-4/5 my-0 mx-auto" htmlFor="userSize">Choose Size (US)</label>
           <select 
+           className="appearance-none border my-0 mx-auto w-4/5 py-2 px-3 bg-gray-900 text-red-200 rounded"
             id="userSize"
             name="userSize"
             required
@@ -92,8 +96,9 @@ class Add extends Component {
               <option value={13.5} > 13.5 </option>
           </select>
           <br></br>
-          <label htmlFor="review"> Review </label>
+          <label className="block text-gray-900 font-bold mb-2 text-center w-4/5 my-0 mx-auto" htmlFor="review"> Review </label>
           <input
+            className="appearance-none border my-0 mx-auto w-4/5 py-2 px-3 bg-gray-900 text-red-200 rounded"
             type="text"
             name="review"
             id="review"
@@ -101,11 +106,17 @@ class Add extends Component {
             onChange={this.handleChange}
           />
            <br></br>
+           <div className="mx-auto w-4/5 my-8">
            <input
+            className="bg-gray-900 text-red-200 font-bold py-2 px-8 rounded"
             type='submit'
             value='Submit'
           />
+
+           </div>
+          
         </form>
+        </div>
       </div>
       }
      

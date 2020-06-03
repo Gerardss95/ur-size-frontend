@@ -56,9 +56,8 @@ export default class BrandsSneakerList extends Component {
       case STATUS.LOADING:
           return <div>Loading...</div>
         case STATUS.LOADED:
-          console.log(brand.brand.name)
-          return <div>
-                <h1>{brand.brand.name}</h1>
+          return <div className="pt-24 flex flex-col align-center justify-center bg-gray-900">
+                <img className='p-6 h-32 self-center bg-red-200 rounded m-4' src={brand.brand.image} alt={brand.brand.name}></img>
                 
                   {this.listSneakers()}
                 </div>

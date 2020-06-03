@@ -127,18 +127,21 @@ componentDidMount = () => {
       case STATUS.LOADED:
         return <div>
                 { owner &&
-                <div>
-                      <form onSubmit={this.handleSubmit}>
-                      <label htmlFor="name">Model Name</label>
+                  <div className="pt-20 w-screen text-center bg-gray-900 text-red-200 h-screen">
+                    <div className="w-5/6 my-8 bg-red-200 shadow-md rounded px-8 pt-6 pb-8 my-0 mx-auto text-black">
+                      <form className="flex flex-col text-center" onSubmit={this.handleSubmit}>
+                      <label className="block text-gray-900 font-bold mb-2 text-center w-4/5 my-0 mx-auto" htmlFor="name">Model Name</label>
                       <input
+                       className="appearance-none border my-0 mx-auto w-4/5 py-2 px-3 bg-gray-900 text-red-200 rounded"
                         type="text"
                         name="name"
                         id="name"
                         defaultValue={sneaker.name}
                         onChange={this.handleChange}
                       />
-                      <label htmlFor="brand">Choose Brand</label>
+                      <label className="block text-gray-900 font-bold mb-2 text-center w-4/5 my-0 mx-auto"  htmlFor="brand">Choose Brand</label>
                       <select
+                       className="appearance-none border my-0 mx-auto w-4/5 py-2 px-3 bg-gray-900 text-red-200 rounded"
                         id="brand" 
                         name="brand"
                         defaultValue={sneaker.brand}
@@ -146,27 +149,25 @@ componentDidMount = () => {
                       >
                       {this.optionBrands()}         
                       </select>
-                      <label htmlFor="image">Link the model images</label>
+                      <label className="block text-gray-900 font-bold mb-2 text-center w-4/5 my-0 mx-auto"  htmlFor="image">Link the model images</label>
                       <input
+                       className="appearance-none border my-0 mx-auto w-4/5 py-2 px-3 bg-gray-900 text-red-200 rounded"
                         type="text"
                         name="image"
                         id="image"
                         defaultValue={sneaker.image}
                         onChange={this.handleChange}
                       />
-                      <label htmlFor="info">Info</label>
-                      <input
-                        type="text"
-                        name="info"
-                        id="info"
-                        defaultValue={sneaker.info}
-                        onChange={this.handleChange}
-                      />
                       <br/>
-                      <input type="submit" value="Update" />
+                      <div className="mx-auto w-4/5 my-8">
+                      <input className="bg-gray-900 text-red-200 font-bold py-2 px-8 rounded" type="submit" value="Update" />
+                      </div>
                     </form>
-                    <button onClick={(e) => {this.handleDelete(sneakerId) }}> Delete </button>
+                    <div className="mx-auto w-4/5 my-8">
+                    <button  className="bg-red-500 text-red-200 font-bold py-2 px-8 rounded" onClick={(e) => {this.handleDelete(sneakerId) }}> Delete </button>
+                    </div>
                   </div>  
+                  </div>
                 }
                
               </div>
