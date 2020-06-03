@@ -38,7 +38,6 @@ class Navbar extends Component {
          <a className="px-12 py-3" href="https://www.linkedin.com/in/gerardss95/">Contact Creator</a>
         </ul>
       )}
-
       </div>
 
     )
